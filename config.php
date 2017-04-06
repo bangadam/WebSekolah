@@ -8,9 +8,9 @@ define('SITE_URL', PATH . 'index.php');
 define('POSITION_URL', PATH . '?page=' . $page);
 
 // this configuration for database website 
-define('DB_HOST', 'u805207952_adam');	// Host yang digunakan
-define('DB_USERNAME', 'u805207952_adam'); // Username host yang digunakan
-define('DB_PASSWORD', 'arekgedangan'); // PAssword host yang digunakan
-define('DB_NAME', 'u805207952_adam'); // database yang digunakan
+define('DB_HOST', 'localhost');	// Host yang digunakan
+define('DB_USERNAME', 'root'); // Username host yang digunakan
+define('DB_PASSWORD', ''); // PAssword host yang digunakan
+define('DB_NAME', 'db_schools'); // database yang digunakan
 
  ?>
