@@ -1,4 +1,4 @@
-<?php 
+<?php
     $page = (isset($_GET['page']) && $_GET['page']) ? $_GET['page'] : '';
 ?>
 
@@ -42,8 +42,8 @@
         <!-- SOCIAL MEDIA -->
         <div class="social">
             <ul>
-                <li><a href="http://facebook.com/bangadam123"><img src="resources/images/Facebook.png" alt="facebook"></a></li>
-                <li><a href="http://github.com/bangadam"><img src="resources/images/github.png" alt="github"></a></li>
+                <li><a href="http://facebook.com/bangadam.dev" target="_blank"><img src="resources/images/Facebook.png" alt="facebook"></a></li>
+                <li><a href="http://github.com/bangadam" target="_blank"><img src="resources/images/github.png" alt="github"></a></li>
             </ul>
         </div>
 
@@ -71,8 +71,8 @@
         <div class="clear"></div>
     </div>
     <!-- END OF TOP MENU WEBSITE -->
-    
-    <?php 
+
+    <?php
         if($page == "" || $page == "home") {
      ?>
 
@@ -115,14 +115,14 @@
     </div>
     <?php } ?>
     <!-- END OF SLIDER WEBSITE -->
-    
+
     <!-- CONTENT WEBSITE BEGIN -->
     <div id="content">
 
         <!-- LEFT CONTENT WEBSITE BEGIN -->
         <div id="left-content">
-            
-            <?php 
+
+            <?php
                 $view = new View($viewName);
                 $view->bind('data', $data);
                 $view->forceRender()
@@ -139,11 +139,11 @@
                 <div class="top-right-panel">Artikel Terbaru</div>
                 <div class="bottom-right-panel">
                     <ul>
-                        <?php 
+                        <?php
                             foreach($data['main_artikel'] as $artikel) {
                          ?>
                             <li><a href="<?php echo SITE_URL; ?>?page=artikel&&action=detail&&id=<?php echo $artikel->id_artikel; ?>"><?php echo $artikel->judul; ?></a></li>
-                         <?php 
+                         <?php
                             }
                           ?>
                     </ul>
@@ -155,7 +155,7 @@
                 <div class="top-right-panel">Kategori Artikel</div>
                 <div class="bottom-right-panel">
                     <ul>
-                        <?php 
+                        <?php
                             foreach ($data['main_kategori'] as $kategori) {
                          ?>
                              <li>
@@ -163,7 +163,7 @@
                                     <?php echo $kategori->nama_kategori; ?>
                                     (<?php echo $kategori->total; ?>)
                                 </a>
-                            </li>   
+                            </li>
                          <?php } ?>
                     </ul>
                 </div>
@@ -191,7 +191,7 @@
                             <td>:</td>
                             <td>
                                 <b>
-                                    <?php 
+                                    <?php
                                         date_default_timezone_set("Asia/Jakarta");
                                         echo date('h : i : s');
                                     ?>
@@ -212,7 +212,7 @@
                             <td>:</td>
                             <td>
                                 <b>
-                                    <?php 
+                                    <?php
                                         echo $_SERVER['HTTP_USER_AGENT'];
                                      ?>
                                 </b>

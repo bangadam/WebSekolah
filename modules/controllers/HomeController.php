@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
 * ini adalah controller Home
 */

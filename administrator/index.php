@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 // define configuration
@@ -21,8 +21,8 @@ function __autoload($className) {
 }
 
 // now let begin for make it MVC
-$page = (isset($_GET['page']) && $_GET['page']) ? $_GET['page'] : 'home';
-$controller = ROOT . DS . 'modules' . DS . 'controllers' . DS . $page . 'Controller.php';
+$page = (isset($_GET['page']) && $_GET['page']) ? $_GET['page'] : 'Home';
+$controller = ROOT . DS . 'modules' . DS . 'controllers' . DS . ucfirst($page) . 'Controller.php';
 
 if (file_exists($controller)) {
 	require_once $controller;

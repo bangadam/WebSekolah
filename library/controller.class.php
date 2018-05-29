@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
 * ini adalah class untuk controller
 */
@@ -10,10 +10,11 @@ class Controller
 	}
 
 	public function model($modelName) {
-		require_once ROOT . DS . 'modules' . DS . 'models' . DS . $modelName . 'Model.php';
+
+		require_once ROOT . DS . 'modules' . DS . 'models' . DS . ucfirst($modelName) . 'Model.php';
 
 		$className = ucfirst($modelName) . 'Model';
-		$this->$modelName = new $className(); 
+		$this->$modelName = new $className();
 	}
 
 	protected function template($viewName, $data = array()) {
