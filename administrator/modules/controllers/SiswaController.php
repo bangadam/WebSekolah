@@ -1,26 +1,37 @@
-<?php 
+<?php
+
 use \modules\controllers\MainController;
+
 /**
-* ini adalah controller dari siswa
-*/
+ * ini adalah controller dari siswa
+ */
 class SiswaController extends MainController
 {
-	public function index() {
+	public function index()
+	{
 		$this->model('siswa');
 
-		$data = $this->siswa->getJoin('jurusan',
-			array('jurusan.id_jurusan' => 'siswa.id_jurusan'),
-			'JOIN',
-			array('status' => 'Siswa')
-		);
+		$tableJoin = [
+			"jurusan" => "siswa.id_jurusan = jurusan.id_jurusan",
+			"artikel" => "siswa.id_siswa = artikel.id_siswa"
+		];
+
+		$params = []; // Not used in the new version, kept for compatibility
+		$where = [
+			"siswa.status" => "Siswa",
+		];
+
+		$data = $this->siswa->getJoin($tableJoin, $params, "LEFT JOIN", $where);
 
 		$this->template('siswa', array('siswa'	=>	$data));
 	}
 
-	public function detail() {
+	public function detail()
+	{
 		$this->model('siswa');
 		$id = isset($_GET['id']) ? $_GET['id'] : 0;
-		$data = $this->siswa->getJoin('jurusan', 
+		$data = $this->siswa->getJoin(
+			'jurusan',
 			array('siswa.id_jurusan' => 'jurusan.id_jurusan'),
 			'JOIN',
 			array('siswa.id_siswa' => $id)
@@ -29,10 +40,10 @@ class SiswaController extends MainController
 		// die();
 
 		$this->template('detailSiswa', array('siswa' => $data[0], 'title' => 'Detail Siswa'));
-
 	}
 
-	public function insert() {
+	public function insert()
+	{
 
 		$this->model('siswa');
 		$this->model('jurusan');
@@ -104,12 +115,12 @@ class SiswaController extends MainController
 					$success = "Data Berhasil Di Simpan";
 				}
 			}
-
 		}
 		$this->template('frmSiswa', array('error' => $error, 'success'	=>	$success, 'jurusan'	=>	$data, 'title' => 'Tambah Siswa'));
 	}
 
-	public function update() {
+	public function update()
+	{
 
 		$this->model('siswa');
 		$this->model('jurusan');
@@ -117,7 +128,8 @@ class SiswaController extends MainController
 		$error = array();
 		$success = null;
 		$id = isset($_GET['id']) ? $_GET['id'] : 0;
-		$siswa = $this->siswa->getJoin('jurusan',
+		$siswa = $this->siswa->getJoin(
+			'jurusan',
 			array(
 				'jurusan.id_jurusan' => 'siswa.id_jurusan'
 			),
@@ -165,19 +177,19 @@ class SiswaController extends MainController
 			if (count($error) == 0) {
 				$imageName = $images['name'];
 				$updatArray = array(
-						'id_jurusan'	=>	$jurusan,
-						'nama_lengkap'	=>	$nama_lengkap,
-						'nis'			=>	$nis,
-						'jenis_kelamin'	=>	$jenis_kelamin,
-						'alamat'		=>	$alamat,
-						'nomor_hp'		=>	$nomor_hp,
-						'angkatan'		=>	$angkatan,
-						'status'		=>	$status
+					'id_jurusan'	=>	$jurusan,
+					'nama_lengkap'	=>	$nama_lengkap,
+					'nis'			=>	$nis,
+					'jenis_kelamin'	=>	$jenis_kelamin,
+					'alamat'		=>	$alamat,
+					'nomor_hp'		=>	$nomor_hp,
+					'angkatan'		=>	$angkatan,
+					'status'		=>	$status
 				);
 
 				if ($imageName) {
 					$imageName = date('d-m-Y') . str_replace(" ", "_", $imageName);
-			
+
 					unlink('public/images/siswa/' . $siswa[0]->images);
 					move_uploaded_file($images['tmp_name'], 'public/images/siswa/' . $imageName);
 
@@ -185,23 +197,24 @@ class SiswaController extends MainController
 				}
 
 				$update = $this->siswa->update(
-					$updatArray, array('id_siswa' => $id)
+					$updatArray,
+					array('id_siswa' => $id)
 				);
 
 				if ($update) {
 					$success = "Data Berhasil Di Simpan";
 				}
 			}
-
 		}
 		$this->template('frmSiswa', array('error' => $error, 'success'	=>	$success, 'jurusan'	=>	$data, 'siswa'	=>	$siswa[0], 'title'	=>	'Edit Siswa'));
 	}
 
-	public function delete() {
+	public function delete()
+	{
 		$id = isset($_GET['id']) ? $_GET['id'] : 0;
 		$this->model('siswa');
 		$siswa = $this->siswa->getWhere('siswa', array('id_siswa' => $id));
-		$images = file_exists('public/images/siswa/' .$siswa[0]->images);
+		$images = file_exists('public/images/siswa/' . $siswa[0]->images);
 		if ($images) {
 			unlink('public/images/siswa/' . $siswa[0]->images);
 		}
@@ -213,4 +226,3 @@ class SiswaController extends MainController
 		}
 	}
 }
- ?>
