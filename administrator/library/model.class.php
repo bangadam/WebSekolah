@@ -44,7 +44,7 @@ class Model
 		return $this->db->getWhere($this->tableName, $params)->toObject();
 	}
 
-	public function getJoin($tableJoin, $params, $joinType = "JOIN", $where = [])
+	public function getJoin($tableJoin, $params, $joinType = "JOIN", $where = [], $orderBy = [])
 	{
 		// Base query
 		$sql = "SELECT * FROM " . $this->tableName;
@@ -66,6 +66,16 @@ class Model
 				$conditions[] = $key . "='" . $value . "'";
 			}
 			$sql .= implode(" AND ", $conditions);
+		}
+
+		// Add ORDER BY clause
+		if (!empty($orderBy)) {
+			$sql .= " ORDER BY ";
+			$orderConditions = [];
+			foreach ($orderBy as $column => $order) {
+				$orderConditions[] = $column . " " . $order;
+			}
+			$sql .= implode(", ", $orderConditions);
 		}
 
 		// Execute query

@@ -20,8 +20,11 @@ class SiswaController extends MainController
 		$where = [
 			"siswa.status" => "Siswa",
 		];
+		$order = [
+			"siswa.id_siswa" => "DESC"
+		];
 
-		$data = $this->siswa->getJoin($tableJoin, $params, "LEFT JOIN", $where);
+		$data = $this->siswa->getJoin($tableJoin, $params, "LEFT JOIN", $where, $order);
 
 		$this->template('siswa', array('siswa'	=>	$data));
 	}
